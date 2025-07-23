@@ -139,7 +139,7 @@ const lastNames = [
     });
 
     const result = await response.json();
-    const profileId = result?.data?.updateJobSeeker?._id;
+    const profileId = result?.data?.updateJobSeeker?.[0]?._id;
 
     if (profileId) {
       return res.status(200).json({
