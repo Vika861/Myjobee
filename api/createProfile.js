@@ -6,8 +6,32 @@ export default async function handler(req, res) {
   }
 
   // Random name generation
-  const firstNames = ["Abhishek", "Rahul", "Ravi", "Amit", "Sagar", "Manish", "Yash", "Kunal"];
-  const lastNames = ["Sharma", "Verma", "Patel", "Singh", "Yadav", "Tiwari", "Raj", "Mishra"];
+  const firstNames = [
+  "Aadarsh", "Abhay", "Abhijeet", "Abhimanu", "Abhinav", "Abhishek", "Akhil", "Aman", "Ambuj", "Amit",
+  "Anand", "Anil", "Ankit", "Ankush", "Anuj", "Arjun", "Ashish", "Atul", "Avdesh", "Ayush", "Bhanu",
+  "Bhavesh", "Chandan", "Deepak", "Dev", "Devbrat", "Dipu", "Ganesh", "Gaurav", "Gopal", "Hariom",
+  "Harshit", "Himanshu", "Jatin", "Kapil", "Karan", "Kanhiya", "Krish", "Krishna", "Kunal", "Manish",
+  "Mangal", "Mohan", "Mohit", "Monu", "Nishant", "Nitish", "Lav", "Parmod", "Parth", "Praduman",
+  "Prashant", "Prem", "Raghu", "Rahul", "Raj", "Rakesh", "Rambhu", "Ramesh", "Ravi", "Ravindra",
+  "Rishabh", "Rishi", "Rohan", "Ronak", "Roshan", "Sachin", "Sagar", "Sanjit", "Samar", "Sameer",
+  "Sant", "Sanju", "Satish", "Satya", "Shivam", "Shirshant", "Shrikant", "Sohan", "Sonu", "Sonal",
+  "Sourabh", "Sudhanshu", "Sudheer", "Sujeet", "Sumit", "Sunil", "Sushil", "Suraj", "Suresh", "Umesh",
+  "Vijay", "Vikram", "Vinay", "Vinod", "Vishal", "Vishu", "Virat", "Vivek", "Yash", "Yogesh"
+];
+
+const lastNames = [
+  "Aarya", "Agarwal", "Ahir", "Akela", "Arora", "Awasthi", "Banerjee", "Bhaduriya", "Bhatt", "Chakra",
+  "Chakarvarti", "Chattarjee", "Chaubey", "Chaturvedi", "Chandravanshi", "Chauhan", "Choudhary",
+  "Dhawal", "Dhawan", "Deshmukh", "Dubey", "Dokhle", "Gandhi", "Gokhil", "Ghoshal", "Gokul", "Gond",
+  "Goswami", "Gupta", "Hooda", "Jaat", "Jain", "Jatara", "Jayes", "Jugi", "Kapoor", "Kumar", "Kharwar",
+  "Kesari", "Kohli", "Kumhaar", "Kurmi", "Kushwaha", "Lala", "Lakhani", "Lohar", "Lokhande", "Malhotra",
+  "Marvare", "Maurya", "Maali", "Mauryavanshi", "Mehra", "Mital", "Modi", "Naidu", "Naveen", "Nehru",
+  "Patani", "Paatil", "Pal", "Pandey", "Paneri", "Panjiwan", "Pathak", "Patel", "Pele", "Prajapati",
+  "Prashad", "Prabhu", "Raghuwanshi", "Raj", "Rajput", "Raja", "Ram", "Ramdin", "Raydu", "Rotle", "Roy",
+  "Sardar", "Seikh", "Seth", "Sharma", "Singh", "Singhania", "Sukla", "Shinghle", "Surya", "Survanshi",
+  "Suryavanshi", "Swasthi", "Talpade", "Talwar", "Tahrik", "Tilakdhari", "Tiwari", "Tripathi", "Trivedi",
+  "Verma", "Yadav", "Yaduvanshi"
+];
   const fname = firstNames[Math.floor(Math.random() * firstNames.length)];
   const lname = lastNames[Math.floor(Math.random() * lastNames.length)];
 
