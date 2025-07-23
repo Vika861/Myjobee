@@ -1,24 +1,21 @@
 // File: api/send-otp.js
 
-export default async function handler(req, res) { const phone = req.query.phone;
+export default async function handler(req, res) { if (req.method !== 'GET') { return res.status(405).json({ error: 'Method not allowed' }); }
 
-if (!phone || !/^\d{10}$/.test(phone)) { return res.status(400).json({ success: false, error: 'Invalid phone number' }); }
+const phone = req.query.phone; if (!phone) { return res.status(400).json({ error: 'Missing phone number' }); }
 
-// Generate a fake device-id (32 characters) const dev = [...Array(32)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+const dev = generateRandom(32);
 
-const query = { query: mutation { sendOTPMessage( mobile_number: { country_code: \"91\", number: \"${phone}\" }, user_type: 0, check_user_existence: false ) { status data { is_registered registration_step } error httpStatusCode } }, variables: {} };
+const headers = { 'accept': 'application/json, text/plain, /', 'device-id': dev, 'x-api-key': 'saPWEAUkwbiStkiygODZqTDFPmsVAHC8J8S0+rRseHA=', 'x-country-code': 'IN', 'x-device-country-code': 'IN', 'x-user-platform': 'android', 'content-type': 'application/json', 'accept-encoding': 'gzip', 'user-agent': 'okhttp/4.9.2', };
 
-const headers = { 'accept': 'application/json, text/plain, /', 'device-id': dev, 'x-api-key': 'saPWEAUkwbiStkiygODZqTDFPmsVAHC8J8S0+rRseHA=', 'x-country-code': 'IN', 'x-device-country-code': 'IN', 'x-user-platform': 'android', 'content-type': 'application/json', 'user-agent': 'okhttp/4.9.2' };
+const payload = { query: mutation { sendOTPMessage( mobile_number: { country_code: "91", number: "${phone}" }, user_type: 0, check_user_existence: false ) { status error httpStatusCode data { is_registered } } }, variables: {}, };
 
-try { const response = await fetch('https://api.myjobee.com/user/token?appVersion=1.45.1', { method: 'POST', headers, body: JSON.stringify(query) });
+try { const response = await fetch('https://api.myjobee.com/user/token?appVersion=1.45.1', { method: 'POST', headers: headers, body: JSON.stringify(payload), });
 
 const result = await response.json();
+return res.status(200).json({ result });
 
-if (result?.data?.sendOTPMessage?.data?.is_registered === false) {
-  return res.status(200).json({ success: true, message: 'OTP sent', phone, dev });
-} else {
-  return res.status(200).json({ success: false, message: 'Already registered', phone });
-}
+} catch (err) { console.error(err); return res.status(500).json({ error: 'Something went wrong' }); } }
 
-} catch (error) { return res.status(500).json({ success: false, error: 'Request failed', detail: error.message }); } }
+function generateRandom(length) { const characters = '1234567890abcdefghijklmnopqrstuvwxyz'; let result = ''; for (let i = 0; i < length; i++) { result += characters.charAt(Math.floor(Math.random() * characters.length)); } return result; }
 
