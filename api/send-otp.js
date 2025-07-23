@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Phone number is required" });
   }
 
-  const dev = generateRandomString(32);
+  const dev = generateRandomString(32); // Device ID
 
   const headers = {
     'Host': 'api.myjobee.com',
@@ -38,7 +38,8 @@ export default async function handler(req, res) {
       const isRegistered = result.data.sendOTPMessage.data.is_registered;
       return res.status(200).json({
         message: isRegistered ? "Already Registered" : "OTP Sent Successfully",
-        is_registered: isRegistered
+        is_registered: isRegistered,
+        dev: dev // ✅ Return dev in response
       });
     } else {
       return res.status(500).json({ error: "API returned an error", result });
