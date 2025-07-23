@@ -59,10 +59,8 @@ export default async function handler(req, res) {
       return res.status(200).json({
         status: "success",
         message: "OTP Verified",
-        token,
-        user_id: userId,
-        is_registered: result.data.is_registered,
-        next_step: "/api/create-profile", // you can build this next
+        token: token,       // token will appear here
+        user_id: userId     // user_id will appear here
       });
     } else {
       return res.status(400).json({
